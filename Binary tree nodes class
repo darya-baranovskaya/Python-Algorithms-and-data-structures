@@ -1,0 +1,44 @@
+#Class for nodes for a binary tree
+
+class Node:
+
+    def __init__(self, key):
+
+        self.left = None
+        self.right = None
+        self.key = key
+
+    def PrintTree(self):
+        print(self.key)
+
+    def insert(self, new):
+        if self.key:
+            if new < self.key:
+                if self.left is None:
+                    self.left = Node(new)
+                else:
+                    self.left.insert(new)
+            elif new > self.key:
+                if self.right is None:
+                    self.right = Node(new)
+                else:
+                    self.right.insert(new)
+        else:
+            self.key = new
+
+    def inorder_tree_walk(self):
+        if self.left is not None:
+            self.left.inorder_tree_walk()
+        print(self.key)
+        if self.right is not None:
+            self.right.inorder_tree_walk()
+
+    def inorder_tree_walk_leefs(self):
+        if self.left is not None:
+            self.left.inorder_tree_walk_leefs()
+        if self.left is None and self.right is None:
+            print(self.key)
+        if self.right is not None:
+            self.right.inorder_tree_walk_leefs()
+
+

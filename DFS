@@ -1,0 +1,65 @@
+#DFS for graph as dictionary of neighbors for each vertex
+def dfs(v):
+    sys.setrecursionlimit(1000000)
+    visited.add(v)
+    for i in dictOfTops[v]:
+        if i not in visited:
+            dfs(i)
+            
+#DFS for graph as Matrix
+def dfs(v):
+    sys.setrecursionlimit(1000000)
+    global answ, visited2
+    visited.add(v)
+    for j in range(len(matrix)):
+        if answ != -1:
+            return answ
+        if (j not in visited):
+            if (matrix[v][j] == 1):
+                visited2[j] = v
+                answ = dfs(j)
+        else:
+            if (matrix[v][j] == 1 and visited2[v] != j):
+                answ = j
+                visited2[j] = v
+                return answ
+    return answ
+    
+
+#DFS to find connected components 
+import sys
+
+
+def dfs(v):
+    sys.setrecursionlimit(1000000)
+    visited.add(v)
+    for i in dictOfTops[v]:
+        if i not in visited:
+            dfs(i)
+
+
+n, m = map(int, input().split())
+visited = set()
+dictOfTops = {}
+setAllTops = set()
+for i in range(1, n + 1):
+    setAllTops.add(i)
+    dictOfTops[i] = set()
+for i in range(m):
+    v1, v2 = map(int, input().split())
+    dictOfTops[v1].add(v2)
+    dictOfTops[v2].add(v1)
+counter = 0
+answlist = []
+for i in range(1, n + 1):
+    setAllTops -= visited
+    visited = set()
+    if (i in setAllTops):
+        counter += 1
+        dfs(i)
+        answlist.append(visited)
+
+print(counter)
+for i in range(len(answlist)):
+    print(len(answlist[i]))
+    print(' '.join(map(str, answlist[i])))
